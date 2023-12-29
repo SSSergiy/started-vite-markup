@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+
+<Head srcpars="./src/html/layout/Head.html" />
+
+<body>
+    <p>
+        <label>
+            Type an image URL to decode
+            <input type="url" id="image-url" list="image-list">
+            <datalist id="image-list">
+                <option value="./src/img/Avatar.png">
+                <option value="./src/img/Avatar.png">
+                <option value="./src/img/Avatar.png">
+            </datalist>
+        </label>
+    </p>
+
+    <p>
+        <label>
+            Choose a filter to apply
+            <select id="filter">
+                <option value="none">none</option>
+                <option value="grayscale">grayscale</option>
+                <option value="brighten">brighten by 20%</option>
+            </select>
+        </label>
+    </p>
+
+    <div id="output"></div>
+
+    <script type="module">
+        const worker = new Worker("./src/js/workers/worker.js", { type: "module" });
+        worker.onmessage = receiveFromWorker;
+
+        const url = document.querySelector("#image-url");
+        const filter = document.querySelector("#filter");
+        const output = document.querySelector("#output");
+
+        url.oninput = updateImage;
+        filter.oninput = sendToWorker;
+
+        let imageData, context;
+
+        function updateImage() {
+            const img = new Image();
+            img.src = url.value;
+
+            img.onload = () => {
+                const canvas = document.createElement("canvas");
+                canvas.width = img.width;
+                canvas.height = img.height;
+
+                context = canvas.getContext("2d");
+                context.drawImage(img, 0, 0);
+                imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+
+                sendToWorker();
+                output.replaceChildren(canvas);
+            };
+        }
+
+        function sendToWorker() {
+            worker.postMessage({ imageData, filter: filter.value });
+        }
+
+        function receiveFromWorker(e) {
+            context.putImageData(e.data, 0, 0);
+        }
+    </script>
+    <div class="wrapper">
+        <div class="main __container">
+            <div class="__container">
+                <h1 class="main__title title">
+                    <span>Vite</span> <br />simple starter markup template
+                </h1>
+                <Header srcpars="./src/html/layout/Header.html" />
+                <Header srcpars="./src/html/layout/Header.html" />
+
+            </div>
+        </div>
+        <script type="module" crossorigin src="./src/js/main.js"></script>
+</body>
+
+</html>

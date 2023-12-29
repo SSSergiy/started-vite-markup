@@ -1,0 +1,53 @@
+{
+    "name": "started-vite-markup",
+    "private": true,
+    "version": "0.0.0",
+    "type": "module",
+    "scripts": {
+        "dev": "vite --open",
+        "build": "vite build",
+        "preview": "vite preview --open",
+        "convert": "node scripts/vite-font-converter.mjs woff woff2",
+        "font": "node scripts/create-include-woff.mjs --rewrite",
+        "track-styles": "node --inspect-brk scripts/trackStyles.mjs",
+        "track-style": "node scripts/trackStyles.cjs",
+        "chromes": "C:\\Progra~1\\Google\\Chrome\\Application\\chrome.exe\" --remote-debugging-port=9223",
+        "chrome--disable-gpu": "chrome --headless --disable-gpu --dump-dom http://localhost:9235/"
+    },
+    "browserslist": [
+        "cover 99.5%"
+    ],
+    "devDependencies": {
+        "autoprefixer": "^10.4.4",
+        "chokidar": "^3.5.3",
+        "fast-glob": "^3.3.1",
+        "imagemin": "^8.0.1",
+        "imagemin-webp": "^8.0.0",
+        "open": "^9.1.0",
+        "opn-cli": "^5.0.0",
+        "postcss-import": "^15.1.0",
+        "postcss-sort-media-queries": "^5.2.0",
+        "swiper": "latest",
+        "tippy.js": "latest",
+        "sass": "^1.68.0",
+        "vanilla-lazyload": "latest",
+        "nouislider": "latest",
+        "lightgallery": "latest",
+        "js-datepicker": "latest",
+        "inputmask": "latest",
+        "sharp": "^0.32.6",
+        "svgo": "^3.0.2",
+        "ttf2woff": "^3.0.0",
+        "ttf2woff2": "^5.0.0",
+        "vite": "^4.4.5",
+        "vite-plugin-image-optimizer": "^1.1.7",
+        "vite-plugin-static-copy": "^1.0.0"
+    },
+    "dependencies": {
+        "chrome-remote-interface": "^0.33.0",
+        "js-beautify": "^1.14.11",
+        "simplebar": "latest",
+        "isotope-layout": "^3.0.6",
+        "rollup-pluginutils": "^2.8.2"
+    }
+}
